@@ -205,6 +205,12 @@ The models in case study 2 come from the AI data center microgrid testbed of the
 
 The two case studies are the visible part of a longer test campaign. Between August and September 2026 the lab ran 995 agent attempts across 124 tests, 797 of them with the agent operating MATLAB/Simulink: controller tuning, parameter sweeps, building and extending models, and finding and repairing defects planted in models. A run counts as a pass only when an independent check recomputes the result from logged signals.
 
+### What an agent's work looks like over time
+
+<p align="center"><img src="assets/tests/build_timeline.png" alt="Timeline of tool calls for three agents building the same closed-loop buck converter: a cloud model finishes in 10 minutes with 16 tool calls, a local model on two machines in 43 minutes with 124 calls, a local model on one machine in 91 minutes with 167 calls" width="100%"></p>
+
+Each tick is one tool call, coloured by what the agent was doing. All three agents were given the same task and the same tools, and all three delivered a model that met every requirement (20 of 20, checked independently). What differs is the path. The cloud model reads first, builds in three edits and confirms with two simulations. The local models reach the same result through many more build, simulate and read cycles. This is the design → simulate → measure → revise loop made visible: the agent's progress is a record of tool calls and measurements that can be replayed and audited, not a block of generated text.
+
 ## What is and is not in this repository
 
 Shared here: figures, result numbers and the description of the workflow.
