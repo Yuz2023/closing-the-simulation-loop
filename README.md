@@ -215,8 +215,6 @@ Not shared: the Simulink and RT-LAB models, the controller source, the agent con
 
 Joseph O. Akinwumi, Yuzhuo Li, Pasan Gunawardena, Violet Villeneuve, Bowei Li and Yunwei (Ryan) Li, ELITE Grid Research Lab, Department of Electrical and Computer Engineering, University of Alberta.
 
-Violet Villeneuve ran the real-time simulation experiments on the OPAL-RT target. Bowei Li prepared the poster and slides.
-
 Contact: open an issue on this repository, or find us at the Student Project Demonstration in the exhibit hall.
 
 © 2026 ELITE Grid Research Lab, University of Alberta. Figures may be reused with attribution.
