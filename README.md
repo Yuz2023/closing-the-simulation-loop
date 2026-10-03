@@ -10,6 +10,8 @@ ELITE Grid Research Lab, University of Alberta
 
 You scanned the QR code on our poster. This page holds the results behind it: what the agent did, what it measured, and where it fell short.
 
+> **Ongoing research.** This page reports work in progress at the ELITE Grid Research Lab. The results are preliminary, have not been peer reviewed, and may change as the work continues. All content is owned by the lab; see [Ownership and status](#ownership-and-status).
+
 | | Desktop simulation | Real-time simulation |
 | --- | --- | --- |
 | **Task given to the agent** | Build and refine an FCS-MPC controller for an induction motor drive | Limit the grid power peak of an AI data center model after a voltage sag |
@@ -200,10 +202,16 @@ Shared here: figures, result numbers and the description of the workflow.
 
 Not shared: the Simulink and RT-LAB models, the controller source, the agent configuration and prompts, the tool-layer implementation, and the test bank. These are part of ongoing research at the lab. If you would like to collaborate or see more, please get in touch.
 
+## Ownership and status
+
+**Ownership.** All content in this repository, including text, figures, diagrams, data, recordings and the poster artwork, is the property of the authors and the ELITE Grid Research Lab, University of Alberta. © 2026. All rights reserved. No part may be reproduced, redistributed or used in other work without prior written permission from the lab. Sharing a link to this page is welcome.
+
+**Status.** This repository documents part of an ongoing research project. The methods and results shown here are preliminary and unpublished, have not been peer reviewed, and are subject to revision. Please contact us before citing them.
+
+**Trademarks.** MATLAB and Simulink are trademarks of The MathWorks, Inc. OPAL-RT and RT-LAB are trademarks of OPAL-RT Technologies. IEEE and ECCE names and logos belong to IEEE. Other product names are the property of their owners. Their use here does not imply endorsement.
+
 ## Team and contact
 
 Joseph O. Akinwumi, Yuzhuo Li, Pasan Gunawardena, Violet Villeneuve, Bowei Li and Yunwei (Ryan) Li, ELITE Grid Research Lab, Department of Electrical and Computer Engineering, University of Alberta.
 
 Contact: open an issue on this repository, or find us at the Student Project Demonstration in the exhibit hall.
-
-© 2026 ELITE Grid Research Lab, University of Alberta. Figures may be reused with attribution.
