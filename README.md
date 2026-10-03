@@ -178,26 +178,11 @@ The waveform quality of that model is **not** good yet. The first THD figure loo
 
 ## The lab behind the demo
 
-The models in case study 2 come from the AI data center microgrid testbed of the ELITE Grid Research Lab. The runs above used the real-time simulator. The remaining equipment is where the same agent loop goes next.
+The models in case study 2 come from the AI data center microgrid testbed of the ELITE Grid Research Lab: a hybrid AC/DC microgrid with multi-source supply, storage, and real GPU servers as the load.
 
-<p align="center"><img src="assets/realtime/testbed_status.png" alt="Lab testbed elements and their status in these runs: real-time simulator used; power amplifier and inverter energized but not recorded; utility grid, converters, rack load and PV simulated" width="100%"></p>
+<p align="center"><img src="assets/lab_testbed.png" alt="AI data center microgrid testbed. AC bus: utility grid (96 kW AC grid simulator), on-site generator (real-time simulation with PHIL), 50 kW rooftop solar PV, wind turbine emulator, auxiliary AC load. Interfacing AC/DC converters link to the DC bus: battery emulator, supercapacitor module, 90 kW DC grid simulator, DC electronic load bank. AI load: Nvidia GPU servers running real AI workloads. Control layer: EMS/SCADA and real-time simulators. Measurement layer: DAQ, power analyzer, oscilloscopes." width="100%"></p>
 
-<table>
-  <tr>
-    <td align="center" width="25%"><img src="assets/lab/realtime_simulator.jpg" alt="OPAL-RT real-time simulator"><br><b>Real-time simulator</b><br>OPAL-RT · used in the runs above</td>
-    <td align="center" width="25%"><img src="assets/lab/gpu_servers.jpg" alt="GPU server"><br><b>GPU servers</b><br>Real AI workloads as the load</td>
-    <td align="center" width="25%"><img src="assets/lab/ac_grid_simulator.jpg" alt="AC grid simulator"><br><b>AC grid simulator</b><br>96 kW</td>
-    <td align="center" width="25%"><img src="assets/lab/interfacing_converters.jpg" alt="Interfacing AC/DC converter panel"><br><b>Interfacing converters</b><br>AC/DC</td>
-  </tr>
-  <tr>
-    <td align="center"><img src="assets/lab/dc_grid_simulator.jpg" alt="DC grid simulator"><br><b>DC grid simulator</b></td>
-    <td align="center"><img src="assets/lab/dc_load_bank.jpg" alt="DC electronic load bank"><br><b>DC load bank</b><br>Replays rack power profiles</td>
-    <td align="center"><img src="assets/lab/rooftop_pv.jpg" alt="Rooftop PV array"><br><b>Rooftop PV</b></td>
-    <td align="center"></td>
-  </tr>
-</table>
-
-<p align="center"><img src="assets/realtime/roadmap.png" alt="Roadmap from software-only runs to the lab hardware: 1 software-only real-time runs, done; 2 recorded powered baseline, next; 3 AIDC model with power hardware, proposed; 4 measured GPU load, proposed" width="100%"></p>
+The runs on this page used the real-time simulator in the control layer, with the grid, converters and racks simulated. Connecting the same agent loop to the power hardware shown here is the next step.
 
 ## Behind the demo
 
