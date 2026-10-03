@@ -6,11 +6,9 @@
 
 **Autonomous AI agents for power electronics simulation** · IEEE ECCE 2026 Student Project Demonstration · Vancouver, October 4–8, 2026
 
-ELITE Grid Research Lab, University of Alberta
+[ELITE Grid Research Lab](https://sites.engineering.ualberta.ca/elitegridlab/), University of Alberta
 
 You scanned the QR code on our poster. This page holds the results behind it: what the agent did, what it measured, and where it fell short.
-
-> **Ongoing research.** This page reports work in progress at the ELITE Grid Research Lab. The results are preliminary, have not been peer reviewed, and may change as the work continues. All content is owned by the lab; see [Ownership and status](#ownership-and-status).
 
 | | Desktop simulation | Real-time simulation |
 | --- | --- | --- |
@@ -202,16 +200,36 @@ Shared here: figures, result numbers and the description of the workflow.
 
 Not shared: the Simulink and RT-LAB models, the controller source, the agent configuration and prompts, the tool-layer implementation, and the test bank. These are part of ongoing research at the lab. If you would like to collaborate or see more, please get in touch.
 
-## Ownership and status
-
-**Ownership.** All content in this repository, including text, figures, diagrams, data, recordings and the poster artwork, is the property of the authors and the ELITE Grid Research Lab, University of Alberta. © 2026. All rights reserved. No part may be reproduced, redistributed or used in other work without prior written permission from the lab. Sharing a link to this page is welcome.
-
-**Status.** This repository documents part of an ongoing research project. The methods and results shown here are preliminary and unpublished, have not been peer reviewed, and are subject to revision. Please contact us before citing them.
-
-**Trademarks.** MATLAB and Simulink are trademarks of The MathWorks, Inc. OPAL-RT and RT-LAB are trademarks of OPAL-RT Technologies. IEEE and ECCE names and logos belong to IEEE. Other product names are the property of their owners. Their use here does not imply endorsement.
-
 ## Team and contact
 
-Joseph O. Akinwumi, Yuzhuo Li, Pasan Gunawardena, Violet Villeneuve, Bowei Li and Yunwei (Ryan) Li, ELITE Grid Research Lab, Department of Electrical and Computer Engineering, University of Alberta.
+Joseph O. Akinwumi, Yuzhuo Li, Pasan Gunawardena, Violet Villeneuve, Bowei Li and Yunwei (Ryan) Li, [ELITE Grid Research Lab](https://sites.engineering.ualberta.ca/elitegridlab/), Department of Electrical and Computer Engineering, University of Alberta.
 
 Contact: open an issue on this repository, or find us at the Student Project Demonstration in the exhibit hall.
+
+## Links
+
+**The lab**
+
+- [ELITE Grid Research Lab](https://sites.engineering.ualberta.ca/elitegridlab/), University of Alberta
+
+**Related work from the lab**
+
+- Y. Li et al., "AI Load Dynamics: A Power Electronics Perspective," [arXiv:2502.01647](https://arxiv.org/abs/2502.01647)
+- M. Mughees, Y. Chen, Y. Li, Z. Lin and Y. Li, "AI Data Center Load Forecasting: A Liquid Neural Network Approach," IEEE Transactions on Smart Grid, [doi:10.1109/TSG.2026.3692769](https://doi.org/10.1109/TSG.2026.3692769)
+- Y. Li, M. Mughees, Y. Chen and Y. Li, "The Unseen AI Disruptions for Power Grids: Large Language Model Induced Transients," E2DC 2026. Project repository: [LLM_Impact_Energy_Systems](https://github.com/chennnnnyize/LLM_Impact_Energy_Systems)
+
+**More from us on GitHub**
+
+- [Awesome-MCP-for-Power-Engineering](https://github.com/Yuz2023/Awesome-MCP-for-Power-Engineering): tool connectors (MCP servers) for power engineering software
+- [awesome-aidc-modeling](https://github.com/Yuz2023/awesome-aidc-modeling): research, datasets and tools for AI data center power and energy modeling
+- [awesome-large-load-grid](https://github.com/Yuz2023/awesome-large-load-grid): regulations, guidelines and task forces on large-load and data center grid integration
+- [Graph_driven_automated_research](https://github.com/Yuz2023/Graph_driven_automated_research): a graph-driven automated research workflow
+- [awesome-PELS-open-source-ai-tools](https://github.com/IEEE-PELS/awesome-PELS-open-source-ai-tools): IEEE PELS list of open-source AI tools for power electronics
+
+---
+
+<sub>**Ownership.** All content in this repository, including text, figures, diagrams, data, recordings and the poster artwork, is the property of the authors and the ELITE Grid Research Lab, University of Alberta. © 2026. All rights reserved. No part may be reproduced, redistributed or used in other work without prior written permission from the lab. Sharing a link to this page is welcome.</sub>
+
+<sub>**Status.** This repository documents part of an ongoing research project. The methods and results shown here are preliminary and unpublished, have not been peer reviewed, and are subject to revision. Please contact us before citing them.</sub>
+
+<sub>**Trademarks.** MATLAB and Simulink are trademarks of The MathWorks, Inc. OPAL-RT and RT-LAB are trademarks of OPAL-RT Technologies. IEEE and ECCE names and logos belong to IEEE. Other product names are the property of their owners. Their use here does not imply endorsement.</sub>
