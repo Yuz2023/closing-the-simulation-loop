@@ -25,27 +25,9 @@ Most engineers have used a large language model (LLM) as an **advisor**: you des
 
 An **agent** is the same kind of language model placed inside a feedback loop with real engineering software. It is given tools (open a model, change a block, run a simulation, read a logged signal) and it decides which tool to call next based on what the last call returned.
 
-```mermaid
-flowchart LR
-    subgraph A["LLM as advisor (open loop)"]
-        direction LR
-        E1([Engineer]) -- question --> L1[LLM]
-        L1 -- suggestion --> E1
-        E1 -- "builds, runs, reads<br/>by hand" --> S1[Simulink]
-    end
-```
-
-```mermaid
-flowchart LR
-    subgraph B["Agent as experimenter (closed loop)"]
-        direction LR
-        E2([Engineer]) -- "objective +<br/>constraints" --> L2[AI agent]
-        L2 -- "tool calls" --> M[MCP tool layer]
-        M --> S2[MATLAB / Simulink<br/>RT-LAB / OPAL-RT]
-        S2 -- "numbers: THD, peaks,<br/>step timing, errors" --> L2
-        L2 -- "results + trade-offs" --> E2
-    end
-```
+| LLM as advisor | Agent as experimenter |
+| --- | --- |
+| <img src="assets/diagrams/advisor_open_loop.png" alt="Open loop: the engineer asks the LLM a question, gets a suggestion, then builds, runs and reads the Simulink model by hand"> | <img src="assets/diagrams/agent_closed_loop.png" alt="Closed loop: the engineer gives the agent an objective and constraints; the agent sends tool calls through the MCP tool layer to MATLAB/Simulink and RT-LAB/OPAL-RT, receives measured numbers, and returns results and trade-offs"> |
 
 Three terms are enough to follow the rest of this page:
 
@@ -71,21 +53,7 @@ Two points are worth stating plainly, because they are the most common misunders
 
 ## System architecture
 
-```mermaid
-flowchart LR
-    U([User input<br/>objectives + constraints]) --> AG[AI agent<br/>plan · edit · evaluate]
-    AG --> MCP[MCP tool layer]
-    MCP --> D1
-    MCP --> R1
-    subgraph DESK["Desktop simulation · Case study 1"]
-        D1[Simulink model] --> D2[Run] --> D3[Metrics<br/>THD · ripple · flux]
-    end
-    subgraph RT["Real-time simulation · Case study 2"]
-        R1[Simulink model] --> R2[RT-LAB build] --> R3[OPAL-RT target<br/>50 µs / 35 µs step] -.-> R4[Power hardware<br/>next step]
-    end
-    D3 --> AG
-    R3 -- "recorded waveforms<br/>+ step timing" --> AG
-```
+<p align="center"><img src="assets/diagrams/architecture.png" alt="System architecture: user input goes to the AI agent, which works through the MCP tool layer on two lanes. Desktop simulation: Simulink model, run, metrics. Real-time simulation: Simulink model, RT-LAB build, OPAL-RT target, with power hardware as the next step. Metrics and recordings return to the agent." width="70%"></p>
 
 The same loop drives both lanes. On the desktop lane the agent edits and runs a Simulink model. On the real-time lane it also compiles the model, loads it on the simulator, runs it in real time, and reads back the recording together with the target's own timing report.
 
@@ -146,30 +114,7 @@ A real-time test is normally a manual sequence across several commercial program
 | **Analysis scripts** | Compared the target recording with the desktop run sample by sample | Peak, restart time, DC bus minimum, 0.04 W agreement |
 | **RT-LAB again** | Reset the model, restored the settings it had changed, closed the project | Simulator left ready for the next user |
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor E as Engineer
-    participant A as AI agent
-    participant M as MATLAB / Simulink
-    participant R as RT-LAB
-    participant T as OPAL-RT target
-    E->>A: Limit the grid power peak after a voltage sag
-    A->>R: Build and run the original model
-    R->>T: Load and execute at 50 µs
-    T-->>A: Recording: 485 kW peak at voltage recovery
-    A->>M: Add a controlled charging path
-    A->>M: Run five desktop cases
-    M-->>A: Checks pass, trade-off visible
-    A->>R: Generate code and compile for the target
-    R-->>A: First build attempt fails
-    A->>R: Build again
-    R->>T: Transfer, load, execute
-    T-->>A: 20,000 steps × 67 channels, 0 overruns
-    A->>A: Compare target with desktop: within 0.04 W
-    A->>R: Reset model, restore settings, close project
-    A-->>E: 485 → 153 kW, with the cost stated
-```
+<p align="center"><img src="assets/diagrams/toolchain_sequence.png" alt="Sequence of 15 steps between the engineer, the AI agent, MATLAB/Simulink, RT-LAB and the OPAL-RT target: baseline run on the target, 485 kW peak read back, model edited, five desktop cases, code generated and compiled, first build fails, second build succeeds, transfer, load and execute, 20,000 steps recorded with 0 overruns, comparison with desktop, reset and close the project, result returned with its cost" width="85%"></p>
 
 Nothing in this sequence is specific to one vendor. Each program is reached through its own scripting interface, wrapped as tools the agent can call. The same approach extends to other engineering software; we keep a public list of such connectors at [Awesome-MCP-for-Power-Engineering](https://github.com/Yuz2023/Awesome-MCP-for-Power-Engineering).
 
