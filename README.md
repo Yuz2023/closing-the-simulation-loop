@@ -13,7 +13,7 @@ You scanned the QR code on our poster. This page holds the results behind it: wh
 | | Desktop simulation | Real-time simulation |
 | --- | --- | --- |
 | **Task given to the agent** | Build and refine an FCS-MPC controller for an induction motor drive | Limit the grid power peak of an AI data center model after a voltage sag |
-| **Tools the agent operated** | MATLAB / Simulink | MATLAB / Simulink, RT-LAB, OPAL-RT target |
+| **Software the agent operated** | MATLAB / Simulink | MATLAB / Simulink, RT-LAB, OPAL-RT real-time target |
 | **Result** | Current THD 14.54 % → 4.75 % in 6 iterations | Recovery peak 485 → 153 kW, 0 overruns at a 50 µs step |
 | **Agent working time** | 51.6 min | — |
 
@@ -134,6 +134,51 @@ The session lasted 97.3 minutes, of which 51.6 were active agent time. The agent
 
 This is the step most agent demonstrations do not take. The agent did not stop at a desktop result. It compiled the revised model, loaded it on the lab's OPAL-RT real-time simulator, ran it at a 50 µs step, and read back both the waveforms and the target's timing report.
 
+### Not only Simulink: the agent operates the whole toolchain
+
+A real-time test is normally a manual sequence across several commercial programs: edit the model in Simulink, open the project in RT-LAB, separate and compile it for the target, transfer and load it, start the run, configure the recorder, export the data, then reset the simulator for the next person. The agent carried out that whole sequence itself.
+
+| Software or system | What the agent did there | What came back to the agent |
+| --- | --- | --- |
+| **MATLAB / Simulink** | Edited the model, ran five desktop cases at the target's step size | Waveforms and pass/fail checks |
+| **RT-LAB** (OPAL-RT's real-time software) | Opened the project, generated and compiled the code for the target, transferred and loaded it, set up the recorder, started and stopped the run | Build log, load status, list of recordable signals |
+| **OPAL-RT target** (real-time operating system, 50 µs step) | Executed the model in real time | Native recording of 67 channels, live data stream, the target's own overrun and step-time report |
+| **Analysis scripts** | Compared the target recording with the desktop run sample by sample | Peak, restart time, DC bus minimum, 0.04 W agreement |
+| **RT-LAB again** | Reset the model, restored the settings it had changed, closed the project | Simulator left ready for the next user |
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor E as Engineer
+    participant A as AI agent
+    participant M as MATLAB / Simulink
+    participant R as RT-LAB
+    participant T as OPAL-RT target
+    E->>A: Limit the grid power peak after a voltage sag
+    A->>R: Build and run the original model
+    R->>T: Load and execute at 50 µs
+    T-->>A: Recording: 485 kW peak at voltage recovery
+    A->>M: Add a controlled charging path
+    A->>M: Run five desktop cases
+    M-->>A: Checks pass, trade-off visible
+    A->>R: Generate code and compile for the target
+    R-->>A: First build attempt fails
+    A->>R: Build again
+    R->>T: Transfer, load, execute
+    T-->>A: 20,000 steps × 67 channels, 0 overruns
+    A->>A: Compare target with desktop: within 0.04 W
+    A->>R: Reset model, restore settings, close project
+    A-->>E: 485 → 153 kW, with the cost stated
+```
+
+Nothing in this sequence is specific to one vendor. Each program is reached through its own scripting interface, wrapped as tools the agent can call. The same approach extends to other engineering software; we keep a public list of such connectors at [Awesome-MCP-for-Power-Engineering](https://github.com/Yuz2023/Awesome-MCP-for-Power-Engineering).
+
+**The five steps, one page each**
+
+<p align="center"><img src="assets/realtime/agent_loop_steps.gif" alt="Five slides stepping through the agent loop on the real-time simulator: baseline on the target, diagnose the recovery inrush, edit the model, check on the desktop, verify on the target. Each slide highlights which software is active." width="100%"></p>
+
+The highlight in the top-right corner of each page shows which software the agent is operating at that step.
+
 <p align="center"><img src="assets/case2_key_results.png" alt="Key result: grid power peak at voltage recovery 485 kW before, 153 kW after the agent's change; 0 overruns at a 50 microsecond step" width="100%"></p>
 
 | Step | What happened |
@@ -174,6 +219,10 @@ The agent also revised the lab's OPAL-RT training model so that its PV branch ru
 
 The waveform quality of that model is **not** good yet. The first THD figure looked fine (current 2.3–2.7 %) because it counted only integer harmonics of 60 Hz. Reading the full spectrum showed strong components at 191 Hz and 71.5 Hz, and a current distortion of about 41 %. The PV inverter control still needs tuning. We show this because reading the recording, rather than trusting one summary number, is the point of the method.
 
+| The run on the target | What the full spectrum shows |
+| --- | --- |
+| <img src="assets/realtime/pv_run.png" alt="PV training model on the OPAL-RT target at a 35 microsecond step: PCC voltage, PCC current and PV DC link"> | <img src="assets/realtime/pv_spectrum.png" alt="Spectrum of the PCC current with strong components at 191 Hz and 71.5 Hz"> |
+
 ### What these runs are, and are not
 
 - They are **software-only real-time runs**. The grid, converter and racks are simulated on the OPAL-RT target. No power hardware was connected for any recorded waveform.
@@ -186,6 +235,8 @@ The waveform quality of that model is **not** good yet. The first THD figure loo
 
 The models in case study 2 come from the AI data center microgrid testbed of the ELITE Grid Research Lab. The runs above used the real-time simulator. The remaining equipment is where the same agent loop goes next.
 
+<p align="center"><img src="assets/realtime/testbed_status.png" alt="Lab testbed elements and their status in these runs: real-time simulator used; power amplifier and inverter energized but not recorded; utility grid, converters, rack load and PV simulated" width="100%"></p>
+
 <table>
   <tr>
     <td align="center" width="25%"><img src="assets/lab/realtime_simulator.jpg" alt="OPAL-RT real-time simulator"><br><b>Real-time simulator</b><br>OPAL-RT · used in the runs above</td>
@@ -197,9 +248,11 @@ The models in case study 2 come from the AI data center microgrid testbed of the
     <td align="center"><img src="assets/lab/dc_grid_simulator.jpg" alt="DC grid simulator"><br><b>DC grid simulator</b></td>
     <td align="center"><img src="assets/lab/dc_load_bank.jpg" alt="DC electronic load bank"><br><b>DC load bank</b><br>Replays rack power profiles</td>
     <td align="center"><img src="assets/lab/rooftop_pv.jpg" alt="Rooftop PV array"><br><b>Rooftop PV</b></td>
-    <td align="center"><b>Roadmap</b><br>1 · Software-only real-time runs (done)<br>2 · Recorded run with amplifier and inverter<br>3 · AIDC model with power hardware</td>
+    <td align="center"></td>
   </tr>
 </table>
+
+<p align="center"><img src="assets/realtime/roadmap.png" alt="Roadmap from software-only runs to the lab hardware: 1 software-only real-time runs, done; 2 recorded powered baseline, next; 3 AIDC model with power hardware, proposed; 4 measured GPU load, proposed" width="100%"></p>
 
 ## Behind the demo
 
