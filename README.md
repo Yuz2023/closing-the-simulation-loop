@@ -186,7 +186,35 @@ The runs on this page used the real-time simulator in the control layer, with th
 
 ## Behind the demo
 
-The two case studies are the visible part of a longer test campaign. Between August and September 2026 the lab ran 995 agent attempts across 124 tests, 797 of them with the agent operating MATLAB/Simulink: controller tuning, parameter sweeps, building and extending models, and finding and repairing defects planted in models. A run counts as a pass only when an independent check recomputes the result from logged signals.
+The two case studies sit on top of a two-month test campaign (August 4 to October 2, 2026) on how far engineering agents get on real simulation tools, where they fail, and what a finished task costs.
+
+| About 2,390 | 13 | 100 to 5,151 | 0 |
+| :---: | :---: | :---: | :---: |
+| agent sessions | MATLAB tools available to the agent | blocks in the models it worked on | results accepted on the agent's own word |
+
+Tasks come from power electronics and power systems: buck and boost converters, a PV interface, relay coordination, microgrid resynchronisation, an EV grid-connection node. Every result is recomputed from logged signals by an independent script, against criteria fixed before the run.
+
+**What agents can do today**
+
+<p align="center"><img src="assets/tests/capability_ladder.png" alt="Pass rates by task type. Fault find-and-fix: 94 percent on converter models, 70 percent on control models, 75 percent on microgrid models. Parameter tuning: 19 percent with one submission, 94 percent with measured feedback each round. Building a model from scratch: 2 percent for a local model, 8 percent for a larger local model, 83 percent for the larger local model with a doubled token budget, 100 percent for a cloud model." width="100%"></p>
+
+Finding and repairing a fault holds up as models grow from a hundred blocks to five thousand. Building a model from nothing is where small local models stop.
+
+**Why the loop matters**
+
+<p align="center"><img src="assets/tests/feedback_effect.png" alt="Same tuning task and same local model: 2 percent success with one submission and no feedback, 63 percent when measured values are returned each round, 94 percent with one added sentence telling the agent to change one knob per round." width="80%"></p>
+
+Same task, same model. The only change is that the agent sees measured results and tries again. This is the poster's argument in one chart.
+
+**The agent is also an electrical load**
+
+<p align="center"><img src="assets/tests/power_ladder.png" alt="Power drawn by one desktop AI computer running the agent: 4.7 W idle, 12 W idle with a model loaded, 34 to 37 W average while working on tasks, 33 to 42 W during steady text generation, 89 to 91 W under sustained heavy compute, 127 W highest transient, against a 140 W chip rating." width="90%"></p>
+
+An agent thinks in bursts and then waits for the simulator. Its average draw is about a quarter of the chip rating, with short peaks close to it.
+
+<p align="center"><img src="assets/tests/energy_per_solved_task.png" alt="Energy per attempt versus energy per solved task for four local models on the same 18 fault-repair tasks: 29.3 and 30.7 kJ, 67.9 and 98.5 kJ, 7.4 and 169 kJ, 24.3 and 217 kJ." width="90%"></p>
+
+The model that is cheapest per attempt costs more than five times as much per solved task, because most of its attempts fail. What matters is energy per result.
 
 ### What an agent's work looks like over time
 
