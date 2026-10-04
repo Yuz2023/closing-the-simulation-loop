@@ -244,7 +244,7 @@ Contact: open an issue on this repository, or find us at the Student Project Dem
 
 - Yuzhuo Li and Yunwei (Ryan) Li, "AI Load Dynamics–A Power Electronics Perspective," *IEEE Power Electronics Magazine*, vol. 13, no. 3, pp. 94–104, Sept. 2026, [doi:10.1109/MPEL.2026.3676532](https://doi.org/10.1109/MPEL.2026.3676532)
 - Mariam Mughees, Yuzhuo Li, Zhiheng Lin, Yize Chen and Yunwei (Ryan) Li, "AI Data Center Load Forecasting: A Liquid Neural Network Approach," *IEEE Transactions on Smart Grid*, 2026, [doi:10.1109/TSG.2026.3692769](https://doi.org/10.1109/TSG.2026.3692769)
-- Yuzhuo Li, Mariam Mughees, Yize Chen and Yunwei (Ryan) Li, "The Unseen AI Disruptions for Power Grids: Large Language Model Induced Transients," E2DC 2026. Project repository: [LLM_Impact_Energy_Systems](https://github.com/chennnnnyize/LLM_Impact_Energy_Systems)
+- Yuzhuo Li, Mariam Mughees, Yize Chen and Yunwei (Ryan) Li, "The Unseen AI Disruptions for Power Grids: LLM-Induced Transients," [arXiv:2409.11416](https://arxiv.org/abs/2409.11416); presented at E2DC 2026. Project repository: [LLM_Impact_Energy_Systems](https://github.com/chennnnnyize/LLM_Impact_Energy_Systems)
 
 **More from us on GitHub**
 
